@@ -1,0 +1,19 @@
+.header {
+  color: white;
+  background-color: black;
+  display: block;
+  padding: 2px 5px;
+  margin-bottom: 2px;
+  margin-top: 0px;
+  text-transform: uppercase;
+}
+
+.subHeader {
+  color: white;
+  background-color: #9C0719;
+  display: block;
+  padding: 2px 5px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  font-style: italic;
+}

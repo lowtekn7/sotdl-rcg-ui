@@ -14,24 +14,33 @@ class App extends React.Component<any, IMyState> {
       character: null
     }
 
-    axios.get(this.url, {
-        headers: {
-          "accepts": "application/json"
-        }
-      })
-      .then((res) => {
-        this.setState({
-          character: res.data
-        })
-      })
+
   }
   url: string = "http://localhost:8080/api/v1/character";
   // query server for list of ancestries, novice, expert, and master paths
+
+  componentDidMount() {
+    axios.get(this.url, {
+      headers: {
+        "accepts": "application/json"
+      }
+    })
+    .then((res) => {
+      this.setState({
+        character: res.data
+      });
+    })
+  }
   
   render() {
+    console.log(this.state.character);
+    if (!this.state.character) {
+      return null;
+    }
+
     return (
       <div className="App">
-        <Character character={this.state.character}></Character>
+        <Character character={ this.state.character }/>
       </div>
     );
   }
