@@ -14,23 +14,23 @@ export class SpellDTO {
   Casts: number | undefined;
 }
 export class AttributesDTO {
-  Strength: number | undefined;
-  Agility: number | undefined;
-  Intellect: number | undefined;
-  Will: number | undefined;
+  Strength: string | undefined;
+  Agility: string | undefined;
+  Intellect: string | undefined;
+  Will: string | undefined;
 }
 
 export class CharacteristicsDTO {
-  Speed: number | undefined;
+  Speed: string | undefined;
   Size: string | undefined;
-  HealingRate: number | undefined;
-  Health: number | undefined;
-  Perception: number | undefined;
-  Defense: number | undefined;
-  Corruption: number | undefined;
-  Insanity: number | undefined;
-  Power: number | undefined;
-  Damage: number | undefined;
+  HealingRate: string | undefined;
+  Health: string | undefined;
+  Perception: string | undefined;
+  Defense: string | undefined;
+  Corruption: string | undefined;
+  Insanity: string | undefined;
+  Power: string | undefined;
+  Damage: string | undefined;
 }
 
 export class LanguageDTO {
@@ -64,23 +64,23 @@ export class CharacterDTO {
   Hatred: string[] = [];
 
   Attributes: AttributesDTO = {
-    Strength: undefined,
-    Agility: undefined,
-    Intellect: undefined,
-    Will: undefined
+    Strength: "",
+    Agility: "",
+    Intellect: "",
+    Will: ""
   };
 
   Characteristics: CharacteristicsDTO = {
-    Speed: undefined,
-    Size: undefined,
-    HealingRate: undefined,
-    Health: undefined,
-    Perception: undefined,
-    Defense: undefined,
-    Corruption: undefined,
-    Insanity: undefined,
-    Power: undefined,
-    Damage: undefined
+    Speed: "",
+    Size: "",
+    HealingRate: "",
+    Health: "",
+    Perception: "",
+    Defense: "",
+    Corruption: "",
+    Insanity: "",
+    Power: "",
+    Damage: ""
   };
   Languages: LanguageDTO[] = [];
 

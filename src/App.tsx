@@ -33,7 +33,6 @@ class App extends React.Component<any, IMyState> {
   }
   
   render() {
-    console.log(this.state.character);
     if (!this.state.character) {
       return null;
     }
