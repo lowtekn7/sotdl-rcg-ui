@@ -1,6 +1,6 @@
 export class TalentDTO {
   Name: string | undefined;
-  Source: string | undefined;
+  IsPerceptionRelated: boolean | undefined;
 }
 
 export class DescriptionDTO {
@@ -9,9 +9,9 @@ export class DescriptionDTO {
 }
 
 export class SpellDTO {
-  Name: string | undefined;
-  Tradition: string | undefined;
-  Casts: number | undefined;
+  Name: string = "";
+  Tradition: string = "";
+  Casts: number = 0;
 }
 export class AttributesDTO {
   Strength: string | undefined;
@@ -33,24 +33,16 @@ export class CharacteristicsDTO {
   Damage: string | undefined;
 }
 
-export class LanguageDTO {
-  Name: string | undefined;
-  Proficiencies: string[] | undefined;
-}
-
-export class ProfessionDTO {
-  Type: string | undefined;
-  Description: string | undefined;
-}
-
 export class ItemDTO {
   Name: string | undefined;
-  Properties?: string[];
+  Properties: string[] = [];
   Type: string | undefined;
   AttackBonus?: string;
-  Quantity: number | undefined;
+  Quantity: number = 1;
   Defense?: string;
   ArmorType?: string;
+  WeaponType?: string;
+  Spells: SpellDTO[] = []
 }
 
 export class CharacterDTO {
@@ -59,8 +51,8 @@ export class CharacterDTO {
   Ancestry: string = "";
 
   Paths: Record<string, string> = {};
-  Professions: ProfessionDTO[] = [];
-  Description: DescriptionDTO[] = [];
+  Professions: Record<string, string[]> = {};
+  Description: Record<string, string[]> = {};
   Hatred: string[] = [];
 
   Attributes: AttributesDTO = {
@@ -82,12 +74,12 @@ export class CharacterDTO {
     Power: "",
     Damage: ""
   };
-  Languages: LanguageDTO[] = [];
+  Languages: Record<string, string[]> = {};
 
   Religion: string = "";
   Traditions: string[] = [];
   Spells: SpellDTO[] = [];
-  Talents: TalentDTO[] = [];
+  Talents: Record<string, TalentDTO[]> = {}
 
   Coins: string = "";
   Lifestyle: string = "";
