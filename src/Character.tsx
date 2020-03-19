@@ -3,23 +3,21 @@ import './Character.css';
 import { CharacterDTO, TalentDTO, SpellDTO } from "./models/character.dto";
 import { Statistic } from "./components/statistic.component";
 import { Language } from "./components/language.component";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 interface MyState {
   character: CharacterDTO;
 }
 
 export class Character extends React.Component<any, MyState> {
-  componentDidMount() {
-    this.setState({
-      character: this.props.character
-    });
-  }
 
   render() {
-    if (!this.state) {
+    if (!this.props.character) {
       return null;
     }
-    const character = this.state.character;
+    const character: CharacterDTO = this.props.character;
     const paths = [character.Paths["Novice"], character.Paths["Expert"] ?? null, character.Paths["Master"] ?? null].filter(p => p);
     const attributes = character.Attributes;
     const perceptionTalents: (string | undefined)[] = Object.keys(character.Talents).map((key: string) => {
@@ -39,7 +37,14 @@ export class Character extends React.Component<any, MyState> {
     const professions = Object.keys(character.Professions).map((key: string, index: number) => {
       return (
         <React.Fragment key={index}>
-          {index > 0 && <br/>} <strong>{key}</strong> {character.Professions[key].join(', ')}
+          {index > 0 && <br/>} <strong>{key}</strong> {character.Professions[key]
+            .map(p => {
+              if (p[p.length -1] === '.') {
+                return p.slice(0, -1);
+              }
+              return p;
+            })
+            .join(', ')}
         </React.Fragment>
       )
     });
@@ -61,41 +66,81 @@ export class Character extends React.Component<any, MyState> {
 
     const spells = character.Traditions.map((tradition, index) => {
       const spellList = character.Spells.filter(s => s.Tradition === tradition)
-        .sort((f: SpellDTO, s: SpellDTO) => s?.Casts - f?.Casts);
+        .sort((f: SpellDTO, s: SpellDTO) => f?.Rank - s?.Rank);
       return (
         <React.Fragment key={index}>
           <span><strong>{tradition}</strong> <span style={{textTransform:"lowercase"}}>{spellList.map((spell, i) => {
             return (
-              `${spell.Name} (${spell.Casts})`
+              `${spell.Name} (${spell.Rank})`
             )
           }).join(', ')}</span></span>
           <br/>
         </React.Fragment>
       )
     })
-    let characterString = JSON.stringify(this.state.character, null, 2);
+    
     return (
-      <div className="statBlock">
-        <h2 className="header">{character.Name}<span className="spacer"></span><span className="subText">Level {character.Level} {paths.join('-')}</span></h2>
-        <h4 className="subHeader">Size {character.Characteristics.Size} {character.Ancestry}</h4>
-        <p><Statistic Name="Perception" Score={character.Characteristics.Perception} />{
-          (() => {
-            if (perceptionTalents.length > 0) {
-              return `, ${perceptionTalents.join(', ')}`;
+      <Container>
+        <Row className="header">
+          <Col xs="12" md="6">
+            <h1>{character.Name}</h1>
+          </Col>
+          <Col xs="12" md="6">
+            Level {character.Level} {paths.join('-')}
+          </Col>
+        </Row>
+        <Row className="subHeader">
+          <Col>
+            <h6>Size {character.Characteristics.Size} {character.Ancestry}</h6>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Statistic Name="Perception" Score={character.Characteristics.Perception} />
+            {
+              (() => {
+                if (perceptionTalents.length > 0) {
+                  return `, ${perceptionTalents.join(', ')}`;
+                }
+              })()
+            }<br/>
+            <Statistic Name="Defense" Score={character.Characteristics.Defense}/>; <Statistic Name="Health" Score={character.Characteristics.Health}/><br/>
+            <Statistic Name="Strength" Score={attributes.Strength}/>, <Statistic Name="Agility" Score={attributes.Agility}/>, <Statistic Name="Intellect" Score={attributes.Intellect}/>, <Statistic Name="Will" Score={attributes.Will}/><br/>
+            <Statistic Name="Corruption" Score={character.Characteristics.Corruption}/>, <Statistic Name="Insanity" Score={character.Characteristics.Insanity}/><br/>
+            <Statistic Name="Speed" Score={character.Characteristics.Speed}/>
+          </Col>
+
+        </Row>
+        <Row className="sectionHeader"><h4>Personality</h4></Row>
+        <Row>
+          <Col>
+          {(() => {
+            if (character.Hatred.length > 0) {
+              return (
+                <React.Fragment>
+                  <strong>Hatred</strong> {character.Hatred.join(', ')}
+                </React.Fragment>
+                
+              )
             }
-          })()
-        }<br/>
-        <Statistic Name="Defense" Score={character.Characteristics.Defense}/>; <Statistic Name="Health" Score={character.Characteristics.Health}/><br/>
-        <Statistic Name="Strength" Score={attributes.Strength}/>, <Statistic Name="Agility" Score={attributes.Agility}/>, <Statistic Name="Intellect" Score={attributes.Intellect}/>, <Statistic Name="Will" Score={attributes.Will}/><br/>
-        <Statistic Name="Corruption" Score={character.Characteristics.Corruption}/>, <Statistic Name="Insanity" Score={character.Characteristics.Insanity}/><br/>
-        <Statistic Name="Speed" Score={character.Characteristics.Speed}/>
-        </p>
-        <h4 className="sectionHeader">Languages and Professions</h4>
-        <p>{languages}</p>
-        <p>{professions}</p>
-        
-        <h4 className="sectionHeader">Attack Options</h4>
-        <p>
+          })()}
+          </Col>
+        </Row>
+
+        <Row className="sectionHeader"><h4>Languages and Professions</h4></Row>
+        <Row>
+          <Col>
+            {languages}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {professions}
+          </Col>
+        </Row>
+        <Row className="sectionHeader"><h4>Attack Options</h4></Row>
+        <Row>
+          <Col>
           {(() => {
             let weapons = character.Equipment.filter(e => e.Type === "Weapon");
             if (weapons.length > 0) {
@@ -108,16 +153,22 @@ export class Character extends React.Component<any, MyState> {
               });
             }
           })()}
-        </p>
-        <h4 className="sectionHeader">Talents</h4>
-        <p>{talents}</p>
+          </Col>
+        </Row>
+        <Row className="sectionHeader"><h4>Talents</h4></Row>
+        <Row>
+          <Col>
+          {talents}
+          </Col>
+        </Row>
         
         {(() => {
           if (character.Traditions.length > 0) {
             return (
               <React.Fragment>
-                <h4 className="sectionHeader">Magic</h4>
-                <p>
+                <Row className="sectionHeader"><h4>Magic</h4></Row>
+                <Row>
+                  <Col>
                   <Statistic Name="Power" Score={character.Characteristics.Power}/><br/>
                   {spells}
                   {(() => {
@@ -125,12 +176,12 @@ export class Character extends React.Component<any, MyState> {
                     if (grimoire) {
                       return (
                         <React.Fragment>
-                          <strong>Grimoire</strong> {grimoire.Spells.sort((f, s) => s.Casts - f.Casts)
+                          <strong>Grimoire</strong> {grimoire.Spells.sort((f, s) => f.Rank - s.Rank)
                             .map((s, i) => {
                               return (
                                 <React.Fragment key={i}>
                                   {i > 0 && ', '}
-                                  <span style={{textTransform: "lowercase"}}>{s.Name} ({s.Casts})</span>
+                                  <span style={{textTransform: "lowercase"}}>{s.Name} ({s.Rank})</span>
                                 </React.Fragment>
                               )
                             })}
@@ -138,21 +189,49 @@ export class Character extends React.Component<any, MyState> {
                       )
                     }
                   })()}
-                </p>
+                  </Col>
+                </Row>
               </React.Fragment>
             )
           }
         })()}
-        <h4 className="sectionHeader">Equipment</h4>
-        <p>
-          {character.Equipment.filter(e => e.Type !== "Weapon").map((e, i) => {
-            return <span key={i}>{i > 0 && ', '}{e.Name}{e.Quantity > 1 && ` (${e.Quantity})`}</span>
-          })}
-        </p>
-        <h4 className="sectionHeader">Background</h4>
-        <p>{background}</p>
-        <pre>{characterString}</pre>
-      </div>
+        <Row className="sectionHeader"><h4>Equipment</h4></Row>
+        <Row>
+          <Col>
+            <strong>Lifestyle</strong> {character.Lifestyle}<br/>
+            <strong>Coins</strong> {character.Coins}<br/>
+            {character.Equipment.filter(e => e.Type !== "Weapon")
+              .map(e => { // get rid of the period since we're going to have comma separated
+                if (e.Name[e.Name.length - 1] === '.') {
+                  e.Name = e.Name.slice(0, -1);
+                }
+
+                return e;
+              })
+              .map((e, i) => {
+              return <span key={i}>{i > 0 && ', '}{e.Name}{e.Quantity > 1 && ` (${e.Quantity})`}</span>
+            })}
+          </Col>
+        </Row>
+
+        <Row className="sectionHeader"><h4>Background</h4></Row>
+        <Row>
+          <Col>
+          
+          {(() => {
+            if (character.MarksOfDarkness.length > 0) {
+              return (
+                <React.Fragment>
+                  <strong>Marks of Darkness</strong><br/>
+                    {character.MarksOfDarkness.map((mark, i) => <span key={i}>- {mark}<br/></span>)}
+                </React.Fragment>
+              )
+            }
+          })()}
+          {background}
+          </Col>
+        </Row>
+      </Container>
     
     )
   }

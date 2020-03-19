@@ -11,7 +11,7 @@ export class DescriptionDTO {
 export class SpellDTO {
   Name: string = "";
   Tradition: string = "";
-  Casts: number = 0;
+  Rank: number = 0;
 }
 export class AttributesDTO {
   Strength: string | undefined;
@@ -34,7 +34,7 @@ export class CharacteristicsDTO {
 }
 
 export class ItemDTO {
-  Name: string | undefined;
+  Name: string = "";
   Properties: string[] = [];
   Type: string | undefined;
   AttackBonus?: string;
@@ -54,6 +54,7 @@ export class CharacterDTO {
   Professions: Record<string, string[]> = {};
   Description: Record<string, string[]> = {};
   Hatred: string[] = [];
+  MarksOfDarkness: string[] = [];
 
   Attributes: AttributesDTO = {
     Strength: "",
