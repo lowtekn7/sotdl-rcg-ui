@@ -139,7 +139,7 @@ class App extends React.Component<any, MyState> {
     let errorText = this.state.errorText;
 
     return (
-      <Container>
+      <Container fluid>
         <Row>
           <Col>
             {(() => {
@@ -157,14 +157,16 @@ class App extends React.Component<any, MyState> {
           <Col>
           <Form onSubmit={this.handleSubmit}>
             <Row>
-              <Col>
+              <Col xs="4" sm="3" md="2">
               <Form.Group>
-              <Form.Label>Level</Form.Label>
-              <Form.Control as="select" value={this.state.level} onChange={this.updateLevel}>
-                <option value="any">Any</option>
-                {Array.from(Array(11).keys()).map(i => <option key={i} value={i}>{i}</option>)}
-              </Form.Control>
-            </Form.Group>
+                <Form.Label>Level</Form.Label>
+                <Form.Control as="select" value={this.state.level} onChange={this.updateLevel}>
+                  <option value="any">Any</option>
+                  {Array.from(Array(11).keys()).map(i => <option key={i} value={i}>{i}</option>)}
+                </Form.Control>
+              </Form.Group>
+              </Col>
+              <Col xs="8" sm="9" md="10">
             <Form.Group>
               <Form.Label>Ancestry</Form.Label>
               <Form.Control as="select" value={this.state.ancestry} onChange={this.updateAncestry}>
@@ -173,7 +175,9 @@ class App extends React.Component<any, MyState> {
               </Form.Control>
             </Form.Group>
               </Col>
-              <Col>
+            </Row>
+            <Row>
+              <Col xs="12" sm="4" md="4">
               <Form.Group>
               <Form.Label>Novice Path</Form.Label>
               <Form.Control as="select" value={this.state.novicePath} onChange={this.updateNovicePath}>
@@ -181,6 +185,8 @@ class App extends React.Component<any, MyState> {
                 {this.state.novicePaths?.map((path, i) => <option key={i} value={path}>{path}</option>)}
               </Form.Control>
             </Form.Group>
+            </Col>
+            <Col xs="12" sm="4" md="4">
             <Form.Group>
               <Form.Label>Expert Path</Form.Label>
               <Form.Control as="select" value={this.state.expertPath} onChange={this.updateExpertPath}>
@@ -188,6 +194,8 @@ class App extends React.Component<any, MyState> {
                 {this.state.expertPaths?.map((path, i) => <option key={i} value={path}>{path}</option>)}
               </Form.Control>
             </Form.Group>
+            </Col>
+            <Col xs="12" sm="4"  md="4">
             <Form.Group>
               <Form.Label>Master Path</Form.Label>
               <Form.Control as="select" value={this.state.masterPath} onChange={this.updateMasterPath}>
@@ -197,14 +205,21 @@ class App extends React.Component<any, MyState> {
             </Form.Group>
               </Col>
             </Row>
-
-
-
-            <Button variant="primary" type="submit">Get New Character</Button> {errorText}
+            <Row>
+              <Col>
+                <Button variant="primary" type="submit" className="btn-block">Get New Character</Button>
+              </Col>
+            </Row>
+            
           </Form>
           </Col>
         </Row>
-        <Row>{character}</Row>
+        <br/>
+        <Row>
+          <Col>
+          {character}
+          </Col>
+        </Row>
       </Container>
     );
   }

@@ -80,18 +80,18 @@ export class Character extends React.Component<any, MyState> {
     })
     
     return (
-      <Container>
+      <Container fluid>
         <Row className="header">
-          <Col xs="12" md="6">
+          <Col xs="12">
             <h1>{character.Name}</h1>
           </Col>
-          <Col xs="12" md="6">
+          <Col xs="12">
             Level {character.Level} {paths.join('-')}
           </Col>
         </Row>
         <Row className="subHeader">
           <Col>
-            <h6>Size {character.Characteristics.Size} {character.Ancestry}</h6>
+            Size {character.Characteristics.Size} {character.Ancestry}
           </Col>
         </Row>
         <Row>

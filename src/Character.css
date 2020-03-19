@@ -1,28 +1,7 @@
-.statBlock {
-  padding: 10px 10px;
-}
-
-.statBlock > p {
-  margin-top: 8px;
-  margin-bottom: 8px;
-  margin-left: 10px;
-}
-
 .header {
   color: white;
   background-color: black;
   text-transform: uppercase;
-}
-
-.spacer {
-  visibility: hidden;
-  margin-right: auto;
-}
-
-.subText {
-  font-weight: normal;
-  text-transform: none;
-  font-size: 75%;
 }
 
 .subHeader {
