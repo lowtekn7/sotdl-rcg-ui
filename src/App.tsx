@@ -13,11 +13,11 @@ import Alert from 'react-bootstrap/Alert';
 interface MyState {
   character?: CharacterDTO;
   errorText?: string;
-  level: string;
-  ancestry: string;
-  novicePath: string;
-  expertPath: string;
-  masterPath: string;
+  level?: string;
+  ancestry?: string;
+  novicePath?: string;
+  expertPath?: string;
+  masterPath?: string;
   ancestries?: string[];
   novicePaths?: string[];
   expertPaths?: string[];
@@ -108,7 +108,7 @@ class App extends React.Component<MyProps, MyState> {
       this.setState({
         novicePaths: allPaths.Novice,
         expertPaths: allPaths.Expert,
-        masterPaths: allPaths.Master
+        masterPaths: [...allPaths.Master, ...allPaths.Expert]
       })
     });
   }
@@ -138,15 +138,16 @@ class App extends React.Component<MyProps, MyState> {
   }
 
   updateExpertPath = (event: ChangeEvent<HTMLSelectElement>) => {
-    this.setState({
-      expertPath: event.target.value
-    })
+    const state: MyState = {};
+    state.expertPath = event.target.value;
+
+    this.setState(state);
   }
 
   updateMasterPath = (event: ChangeEvent<HTMLSelectElement>) => {
-    this.setState({
-      masterPath: event.target.value
-    })
+    const state: MyState = {};
+    state.masterPath = event.target.value;
+    this.setState(state)
   }
   
   render() {

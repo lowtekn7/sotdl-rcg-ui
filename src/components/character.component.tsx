@@ -174,15 +174,22 @@ export class Character extends React.Component<any, MyState> {
                   {spells}
                   {(() => {
                     let grimoire = character.Equipment.find(e => e.Name === "Grimoire");
+                    let grimoireTraditions = grimoire?.Spells.map(s => s.Tradition).filter((item, i, ar) => ar.indexOf(item) === i);
+                    let spellsByTradition: Record<string, SpellDTO[]> = {};
+                    grimoireTraditions?.forEach(t => {
+                      spellsByTradition[t] = grimoire?.Spells.filter(s => s.Tradition === t).sort((f, s) => f.Rank - s.Rank) || [];
+                    })
                     if (grimoire) {
                       return (
                         <React.Fragment>
-                          <strong>Grimoire</strong> {grimoire.Spells.sort((f, s) => f.Rank - s.Rank)
-                            .map((s, i) => {
+                          <strong>Grimoire</strong><br/>{Object.keys(spellsByTradition)
+                            .map((key, i) => {
+                              let spells = spellsByTradition[key];
                               return (
                                 <React.Fragment key={i}>
-                                  {i > 0 && ', '}
-                                  <span style={{textTransform: "lowercase"}}>{s.Name} ({s.Rank})</span>
+                                  <span style={{marginLeft: "10px"}}><strong>{key}</strong>{spells.map((s, i) => {
+                                    return <span key={i} style={{textTransform: "lowercase"}}> {s.Name} ({s.Rank})<br/></span>
+                                  })}</span>
                                 </React.Fragment>
                               )
                             })}
