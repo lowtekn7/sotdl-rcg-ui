@@ -41,14 +41,12 @@ class App extends React.Component<MyProps, MyState> {
       masterPath: "any"
     }
 
-    console.log(process.env);
     if (process.env.REACT_APP_API_ENDPOINT) {
       this.apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
       this.configureEndpoints();
     } else {
       throw new Error('API_ENDPOINT not configured');
     }
-    console.log(this.apiEndpoint);
   }
 
   configureEndpoints() {
