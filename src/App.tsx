@@ -10,6 +10,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Alert from 'react-bootstrap/Alert'
 import { NavigationBar } from './components/navbar.component'
+import { FooterPage } from './components/footer.component'
 
 interface MyState {
   character?: CharacterDTO
@@ -160,23 +161,22 @@ class App extends React.Component<MyProps, MyState> {
     let errorText = this.state.errorText
 
     return (
-      <div>
+      <>
         <NavigationBar></NavigationBar>
-        <Container fluid>
+        <Container fluid style={{ marginTop: '10px', marginBottom: '10px' }}>
           <Row>
             <Col>
               {(() => {
                 if (errorText) {
                   return <Alert variant="danger">{errorText}</Alert>
                 }
-
                 return null
               })()}
             </Col>
           </Row>
           <Row>
             <Col>
-              <Form onSubmit={this.handleSubmit} style={{ marginTop: '10px' }}>
+              <Form onSubmit={this.handleSubmit}>
                 <Row>
                   <Col xs="4" sm="3" md="2">
                     <Form.Group>
@@ -285,7 +285,8 @@ class App extends React.Component<MyProps, MyState> {
             <Col>{character}</Col>
           </Row>
         </Container>
-      </div>
+        <FooterPage></FooterPage>
+      </>
     )
   }
 }
