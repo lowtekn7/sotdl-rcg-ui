@@ -114,7 +114,6 @@ class App extends React.Component<MyProps, MyState> {
   }
 
   componentDidMount() {
-    this.getNewCharacter()
     this.getAncestryList();
     this.getPaths();
   }
