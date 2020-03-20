@@ -49,7 +49,7 @@ export class CharacterDTO {
   Level: number = 0;
   Name: string = "";
   Ancestry: string = "";
-
+  Personality: string[] = [];
   Paths: Record<string, string> = {};
   Professions: Record<string, string[]> = {};
   Description: Record<string, string[]> = {};

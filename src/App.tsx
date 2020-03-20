@@ -1,7 +1,7 @@
 import React, { FormEvent, ChangeEvent } from 'react';
 import './App.css';
 import axios from 'axios';
-import { Character } from './Character';
+import { Character } from './components/character.component';
 import { CharacterDTO } from './models/character.dto';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';

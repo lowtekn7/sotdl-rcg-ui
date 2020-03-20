@@ -1,8 +1,8 @@
 import React from "react";
-import './Character.css';
-import { CharacterDTO, TalentDTO, SpellDTO } from "./models/character.dto";
-import { Statistic } from "./components/statistic.component";
-import { Language } from "./components/language.component";
+import './character.css';
+import { CharacterDTO, TalentDTO, SpellDTO } from "../models/character.dto";
+import { Statistic } from "./statistic.component";
+import { Language } from "./language.component";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -114,6 +114,7 @@ export class Character extends React.Component<any, MyState> {
         <Row className="sectionHeader"><h4>Personality</h4></Row>
         <Row>
           <Col>
+          {character.Personality.join(', ')}<br/>
           {(() => {
             if (character.Hatred.length > 0) {
               return (
