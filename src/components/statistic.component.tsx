@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 interface StatisticProps {
-  Name: string;
-  Score: string;
+  Name: string
+  Score: string
 }
 
 export class Statistic extends React.Component<any, StatisticProps> {
@@ -11,6 +11,6 @@ export class Statistic extends React.Component<any, StatisticProps> {
       <React.Fragment>
         <strong>{this.props.Name}</strong> {this.props.Score}
       </React.Fragment>
-    );
+    )
   }
 }

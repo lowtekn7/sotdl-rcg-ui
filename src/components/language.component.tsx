@@ -1,13 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 interface MyState {
-  language: [string, string[]];
+  language: [string, string[]]
 }
 
 export class Language extends React.Component<any, MyState> {
-
   render() {
-    const [ name, proficiencies ] = this.props.language;
+    const [name, proficiencies] = this.props.language
 
     return (
       <React.Fragment>

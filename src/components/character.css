@@ -4,6 +4,18 @@
   text-transform: uppercase;
 }
 
+h4 {
+  margin-bottom: 0px !important;
+}
+
+strong {
+  font-weight: bold !important;
+}
+
+.header h1 {
+  color: white !important;
+}
+
 .subHeader {
   color: white;
   background-color: #9C0719;
