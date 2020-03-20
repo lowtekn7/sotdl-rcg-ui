@@ -24,9 +24,13 @@ interface MyState {
   masterPaths?: string[];
 }
 
-class App extends React.Component<any, MyState> {
+interface MyProps {
+  config: Record<string, string>;
+}
 
-  constructor(props: any) {
+class App extends React.Component<MyProps, MyState> {
+
+  constructor(props: MyProps) {
     super(props);
 
     this.state = {
@@ -36,13 +40,27 @@ class App extends React.Component<any, MyState> {
       expertPath: "any",
       masterPath: "any"
     }
+
+    console.log(process.env);
+    if (process.env.REACT_APP_API_ENDPOINT) {
+      this.apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
+      this.configureEndpoints();
+    } else {
+      throw new Error('API_ENDPOINT not configured');
+    }
+    console.log(this.apiEndpoint);
   }
 
-  apiEndpoint: string = "http://localhost:8080/api/v1";
-  characterUrl: string = `${this.apiEndpoint}/characters`;
-  ancestryUrl: string = `${this.apiEndpoint}/ancestries`;
-  pathsUrl: string = `${this.apiEndpoint}/paths`;
-  // query server for list of ancestries, novice, expert, and master paths
+  configureEndpoints() {
+    this.characterUrl = `${this.apiEndpoint}/characters`;
+    this.ancestryUrl = `${this.apiEndpoint}/ancestries`;
+    this.pathsUrl = `${this.apiEndpoint}/paths`;
+  }
+
+  apiEndpoint: string;
+  characterUrl: string = "";
+  ancestryUrl: string = "";
+  pathsUrl: string = "";
 
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -63,9 +81,11 @@ class App extends React.Component<any, MyState> {
       });
     })
     .catch((err) => {
-      this.setState({
-        errorText: err.response.data
-      })
+      if (err.response) {
+        this.setState({
+          errorText: err.response.data
+        })
+      }
     })
   }
 
