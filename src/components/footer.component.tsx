@@ -15,12 +15,17 @@ export class FooterPage extends React.Component {
             <br />
             <a
               target="_blank"
+              rel="noopener noreferrer"
               href="https://github.com/lowtekn7/sotdl-rcg-ui/issues"
             >
               Report a bug
             </a>
             <br />
-            <a target="_blank" href="https://github.com/lowtekn7/sotdl-rcg-ui">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/lowtekn7/sotdl-rcg-ui"
+            >
               View the Readme on Github
             </a>
           </MDBContainer>
