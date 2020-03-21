@@ -11,6 +11,7 @@ import Row from 'react-bootstrap/Row'
 import Alert from 'react-bootstrap/Alert'
 import { NavigationBar } from './components/navbar.component'
 import { FooterPage } from './components/footer.component'
+import { PrintableCharacter } from './components/printable.component'
 
 interface MyState {
   character?: CharacterDTO
@@ -24,6 +25,7 @@ interface MyState {
   novicePaths?: string[]
   expertPaths?: string[]
   masterPaths?: string[]
+  opened?: boolean
 }
 
 interface MyProps {
@@ -40,6 +42,7 @@ class App extends React.Component<MyProps, MyState> {
       novicePath: 'any',
       expertPath: 'any',
       masterPath: 'any',
+      opened: false,
     }
 
     if (process.env.REACT_APP_API_ENDPOINT) {
@@ -151,6 +154,14 @@ class App extends React.Component<MyProps, MyState> {
     const state: MyState = {}
     state.masterPath = event.target.value
     this.setState(state)
+  }
+
+  toggleOpened = () => {
+    this.setState(prevState => ({ opened: !prevState.opened }))
+  }
+
+  newWindowUnloaded = () => {
+    this.setState({ opened: false })
   }
 
   render() {
@@ -278,6 +289,33 @@ class App extends React.Component<MyProps, MyState> {
                   </Col>
                 </Row>
               </Form>
+            </Col>
+          </Row>
+          <br />
+          <Row>
+            <Col>
+              {' '}
+              {(() => {
+                if (character && this.state.character) {
+                  return (
+                    <>
+                      <Button
+                        variant="secondary"
+                        className="btn-block"
+                        onClick={this.toggleOpened}
+                      >
+                        Print
+                      </Button>
+                      {this.state.opened && (
+                        <PrintableCharacter
+                          character={character}
+                          onUnload={this.newWindowUnloaded}
+                        ></PrintableCharacter>
+                      )}
+                    </>
+                  )
+                }
+              })()}
             </Col>
           </Row>
           <br />

@@ -18,7 +18,7 @@ strong {
 
 .subHeader {
   color: white;
-  background-color: #9C0719;
+  background-color: #9c0719;
   padding: 2px 5px;
   margin-bottom: 2px;
   margin-top: 2px;
@@ -27,10 +27,18 @@ strong {
 
 .sectionHeader {
   color: black;
-  background-color: #A7A9AC;
+  background-color: #a7a9ac;
   font-style: normal;
   text-transform: uppercase;
   padding: 2px 5px;
   margin-bottom: 2px;
   margin-top: 2px;
+}
+
+@media print {
+  body {
+    column-count: 2;
+    column-gap: 40px;
+    column-fill: auto;
+  }
 }
