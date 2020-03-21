@@ -1,5 +1,5 @@
 import React from 'react'
-import { MDBContainer, MDBFooter } from 'mdbreact'
+import { MDBContainer, MDBFooter, MDBRow } from 'mdbreact'
 
 export class FooterPage extends React.Component {
   render() {
@@ -12,6 +12,17 @@ export class FooterPage extends React.Component {
               Schwalb Entertainment
             </a>{' '}
             and used here with permission by Robert Schwalb
+            <br />
+            <a
+              target="_blank"
+              href="https://github.com/lowtekn7/sotdl-rcg-ui/issues"
+            >
+              Report a bug
+            </a>
+            <br />
+            <a target="_blank" href="https://github.com/lowtekn7/sotdl-rcg-ui">
+              View the Readme on Github
+            </a>
           </MDBContainer>
         </div>
       </MDBFooter>
