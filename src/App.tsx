@@ -12,6 +12,7 @@ import Alert from 'react-bootstrap/Alert'
 import { NavigationBar } from './components/navbar.component'
 import { FooterPage } from './components/footer.component'
 import { PrintableCharacter } from './components/printable.component'
+import { Message } from './components/message.component'
 
 interface MyState {
   character?: CharacterDTO
@@ -175,6 +176,7 @@ class App extends React.Component<MyProps, MyState> {
       <>
         <NavigationBar></NavigationBar>
         <Container fluid style={{ marginTop: '10px', marginBottom: '10px' }}>
+          <Message></Message>
           <Row>
             <Col>
               {(() => {
